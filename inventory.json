@@ -1,0 +1,34 @@
+{
+    "pens": [
+        {
+            "name": "Galaxy",
+            "image": "images/pens/galaxy.png"
+        },
+        {
+            "name": "Silver",
+            "image": "images/pens/silver.png"
+        }
+    ],
+    "trinkets": [
+        {
+            "name": "Heart",
+            "category": "Charm",
+            "image": "images/trinkets/heart.png"
+        },
+        {
+            "name": "Moon",
+            "category": "Topper",
+            "image": "images/trinkets/moon.png"
+        }
+    ],
+    "sets": [
+        {
+            "name": "Celestial Love",
+            "pen": "Galaxy",
+            "trinkets": [
+                "Heart",
+                "Moon"
+            ]
+        }
+    ]
+}

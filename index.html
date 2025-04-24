@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pen Customizer</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Customize Your Pen</h1>
+        <div>
+            <h3>Select a Pen</h3>
+            <div class="item-list" id="pen-list"></div>
+        </div>
+
+        <div>
+            <h3>Select Trinkets</h3>
+            <div class="item-list" id="trinket-list"></div>
+        </div>
+
+        <div class="preview" id="preview">
+            <strong>Preview:</strong>
+            <div id="selectedPen">Pen: None</div>
+            <div id="selectedTrinkets">Trinkets: []</div>
+        </div>
+
+        <button onclick="submitCustomization()">Finalize</button>
+    </div>
+
+    <script src="scripts/script.js"></script>
+</body>
+</html>
