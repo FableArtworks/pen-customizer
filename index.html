@@ -1,33 +1,62 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Pen Customizer</title>
-    <link rel="stylesheet" href="styles/style.css">
+  <meta charset="UTF-8">
+  <title>Pen Customizer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    #penSelect, #finalizeButton {
+      margin-bottom: 20px;
+      display: block;
+    }
+    #penCanvas {
+      width: 300px;
+      height: 500px;
+      position: relative;
+      background-color: #ffffff;
+      border: 2px solid #ccc;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .trinket-image {
+      width: 50px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .trinket-on-pen {
+      width: 50px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    #trinketArea {
+      display: flex;
+      flex-wrap: wrap;
+      background: #fff;
+      padding: 10px;
+      border: 2px solid #ccc;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Customize Your Pen</h1>
-        <div>
-            <h3>Select a Pen</h3>
-            <div class="item-list" id="pen-list"></div>
-        </div>
 
-        <div>
-            <h3>Select Trinkets</h3>
-            <div class="item-list" id="trinket-list"></div>
-        </div>
+  <h1>Customize Your Pen</h1>
 
-        <div class="preview" id="preview">
-            <strong>Preview:</strong>
-            <div id="selectedPen">Pen: None</div>
-            <div id="selectedTrinkets">Trinkets: []</div>
-        </div>
+  <label for="penSelect">Select a Pen:</label>
+  <select id="penSelect"></select>
 
-        <button onclick="submitCustomization()">Finalize</button>
-    </div>
+  <div id="penCanvas"></div>
 
-    <script src="scripts/script.js"></script>
+  <h2>Available Trinkets:</h2>
+  <div id="trinketArea"></div>
+
+  <button id="finalizeButton" onclick="submitCustomization()">Finalize Pen</button>
+
+  <script src="scripts/script.js"></script>
+
 </body>
 </html>
