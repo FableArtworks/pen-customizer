@@ -1,65 +1,77 @@
+async function loadPens() {
+  const response = await fetch('config/pens.json');
+  const pens = await response.json();
 
-let selectedPen = null;
-let selectedTrinkets = [];
-let googleScriptUrl = "";
+  const penSelect = document.getElementById('penSelect');
+  penSelect.innerHTML = ''; // clear old options
 
-function selectPen(pen) {
-    selectedPen = pen;
-    document.getElementById("selectedPen").innerText = "Pen: " + pen;
-}
-
-function addTrinket(trinket) {
-    selectedTrinkets.push(trinket);
-    document.getElementById("selectedTrinkets").innerText = "Trinkets: " + JSON.stringify(selectedTrinkets);
-}
-
-function submitCustomization() {
-    if (!googleScriptUrl) {
-        alert("Configuration not loaded yet. Please try again.");
-        return;
+  pens.forEach(pen => {
+    if (pen.available) {
+      const option = document.createElement('option');
+      option.value = pen.code;
+      option.textContent = pen.name;
+      penSelect.appendChild(option);
     }
-
-    const payload = {
-        pen: selectedPen,
-        trinkets: selectedTrinkets,
-        timestamp: new Date().toISOString()
-    };
-
-    fetch(googleScriptUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-    }).then(res => res.text()).then(msg => alert("Submitted: " + msg));
+  });
 }
 
-window.onload = function () {
-    // Load Google Script URL from config
-    fetch("config.json")
-        .then(res => res.json())
-        .then(cfg => {
-            googleScriptUrl = cfg.googleScriptUrl;
+async function loadTrinkets() {
+  const response = await fetch('config/trinkets.json');
+  const trinkets = await response.json();
 
-            // Now load inventory
-            return fetch("inventory.json");
-        })
-        .then(res => res.json())
-        .then(data => {
-            const penList = document.getElementById("pen-list");
-            data.pens.forEach(p => {
-                const img = document.createElement("img");
-                img.src = p.image;
-                img.alt = p.name;
-                img.onclick = () => selectPen(p.name);
-                penList.appendChild(img);
-            });
+  const trinketArea = document.getElementById('trinketArea');
+  trinketArea.innerHTML = ''; // clear old trinkets
 
-            const trinketList = document.getElementById("trinket-list");
-            data.trinkets.forEach(t => {
-                const img = document.createElement("img");
-                img.src = t.image;
-                img.alt = t.name;
-                img.onclick = () => addTrinket(t.name);
-                trinketList.appendChild(img);
-            });
-        });
+  trinkets.forEach(trinket => {
+    if (trinket.available) {
+      const img = document.createElement('img');
+      img.src = trinket.image;
+      img.alt = trinket.name;
+      img.classList.add('trinket-image');
+      img.onclick = () => addTrinketToPen(trinket);
+      trinketArea.appendChild(img);
+    }
+  });
 }
+
+function addTrinketToPen(trinket) {
+  const penCanvas = document.getElementById('penCanvas');
+  const img = document.createElement('img');
+  img.src = trinket.image;
+  img.alt = trinket.name;
+  img.classList.add('trinket-on-pen');
+  penCanvas.appendChild(img);
+}
+
+async function submitCustomization() {
+  const selectedPen = document.getElementById('penSelect').value;
+  const trinketImages = document.querySelectorAll('#penCanvas img');
+  const selectedTrinkets = Array.from(trinketImages).map(img => img.alt);
+
+  const payload = {
+    pen: selectedPen,
+    trinkets: selectedTrinkets
+  };
+
+  try {
+    const response = await fetch('https://your-backend-url.onrender.com/log', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+      alert('Pen finalized and logged!');
+    } else {
+      alert('Failed to finalize pen.');
+    }
+  } catch (err) {
+    console.error('Error submitting:', err);
+    alert('Error finalizing pen.');
+  }
+}
+
+window.onload = async () => {
+  await loadPens();
+  await loadTrinkets();
+};
