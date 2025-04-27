@@ -1,4 +1,5 @@
 let placedTrinkets = [];
+let currentPenImage = null;
 
 async function loadPens() {
   const response = await fetch('config/pens.json');
@@ -14,6 +15,18 @@ async function loadPens() {
       option.textContent = pen.name;
       penSelect.appendChild(option);
     }
+  });
+
+  // Automatically load the first pen if available
+  if (pens.length > 0) {
+    penSelect.value = pens[0].code;
+    loadPenBase(pens[0]);
+  }
+
+  // Change pen when user selects a different one
+  penSelect.addEventListener('change', () => {
+    const selected = pens.find(p => p.code === penSelect.value);
+    loadPenBase(selected);
   });
 }
 
@@ -36,6 +49,24 @@ async function loadTrinkets() {
   });
 }
 
+function loadPenBase(pen) {
+  const penCanvas = document.getElementById('penCanvas');
+  penCanvas.innerHTML = '';
+
+  const baseImg = document.createElement('img');
+  baseImg.src = pen.image;
+  baseImg.alt = pen.name;
+  baseImg.style.position = 'absolute';
+  baseImg.style.top = '0';
+  baseImg.style.left = '0';
+  baseImg.style.width = '100%';
+  baseImg.style.height = 'auto';
+  penCanvas.appendChild(baseImg);
+
+  currentPenImage = baseImg;
+  placedTrinkets = []; // Clear trinkets when switching pens
+}
+
 function addTrinketToPen(trinket) {
   const penCanvas = document.getElementById('penCanvas');
   const quantity = parseInt(document.getElementById('quantitySelect').value);
@@ -45,8 +76,11 @@ function addTrinketToPen(trinket) {
     img.src = trinket.image;
     img.alt = trinket.name;
     img.classList.add('trinket-on-pen');
-    img.style.top = `${10 + (i * 10)}px`;
-    img.style.left = `${10 + (i * 10)}px`;
+    img.style.top = `${30 + (i * 10)}px`;
+    img.style.left = `${30 + (i * 10)}px`;
+    img.style.position = 'absolute';
+    img.style.width = '50px';
+    img.style.height = '50px';
     penCanvas.appendChild(img);
     placedTrinkets.push(img);
   }
@@ -55,6 +89,11 @@ function addTrinketToPen(trinket) {
 function clearPen() {
   const penCanvas = document.getElementById('penCanvas');
   penCanvas.innerHTML = '';
+
+  if (currentPenImage) {
+    penCanvas.appendChild(currentPenImage);
+  }
+
   placedTrinkets = [];
 }
 
@@ -67,7 +106,7 @@ function undoLast() {
 
 async function submitCustomization() {
   const selectedPen = document.getElementById('penSelect').value;
-  const trinketImages = document.querySelectorAll('#penCanvas img');
+  const trinketImages = document.querySelectorAll('#penCanvas img:not(:first-child)');
   const selectedTrinkets = Array.from(trinketImages).map(img => img.alt);
 
   const payload = {
@@ -76,7 +115,7 @@ async function submitCustomization() {
   };
 
   try {
-    const response = await fetch('https://pen-customizer-backend.onrender.com/log', {
+    const response = await fetch('https://pen-inventory-backend.onrender.com/log', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
