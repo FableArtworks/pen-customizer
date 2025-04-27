@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "code": "heart",
+    "name": "Heart",
+    "category": "gem",
+    "image": "trinkets/gem/heart.png",
+    "stock": 0,
+    "available": false
+  },
+  {
+    "code": "moon",
+    "name": "Moon",
+    "category": "gem",
+    "image": "trinkets/gem/moon.png",
+    "stock": 0,
+    "available": false
+  },
+  {
+    "code": "pen_cap_black",
+    "name": "Pen Cap Black",
+    "category": "seasonal",
+    "image": "trinkets/seasonal/pen_cap_black.png",
+    "stock": 0,
+    "available": false
+  },
+  {
+    "code": "pen_gem_colorized",
+    "name": "Pen Gem Colorized",
+    "category": "seasonal",
+    "image": "trinkets/seasonal/pen_gem_colorized.png",
+    "stock": 0,
+    "available": false
+  },
+  {
+    "code": "pen_raidershelmet",
+    "name": "Pen Raidershelmet",
+    "category": "seasonal",
+    "image": "trinkets/seasonal/pen_raidershelmet.png",
+    "stock": 0,
+    "available": false
+  }
+]
