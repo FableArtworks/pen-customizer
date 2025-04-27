@@ -9,23 +9,44 @@
       padding: 20px;
       background-color: #f4f4f4;
     }
-    #penSelect, #finalizeButton {
+    h1, h2 {
+      text-align: center;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
       margin-bottom: 20px;
-      display: block;
+      gap: 10px;
+    }
+    #penSelect, #quantitySelect, button {
+      padding: 10px;
+      font-size: 16px;
     }
     #penCanvas {
       width: 300px;
       height: 500px;
-      position: relative;
+      margin: 20px auto;
       background-color: #ffffff;
       border: 2px solid #ccc;
-      margin-bottom: 20px;
+      position: relative;
       overflow: hidden;
+    }
+    #trinketArea {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: #fff;
+      padding: 10px;
+      border: 2px solid #ccc;
     }
     .trinket-image {
       width: 50px;
       margin: 5px;
       cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .trinket-image:hover {
+      transform: scale(1.2);
     }
     .trinket-on-pen {
       width: 50px;
@@ -33,28 +54,28 @@
       top: 10px;
       left: 10px;
     }
-    #trinketArea {
-      display: flex;
-      flex-wrap: wrap;
-      background: #fff;
-      padding: 10px;
-      border: 2px solid #ccc;
-    }
   </style>
 </head>
 <body>
 
   <h1>Customize Your Pen</h1>
 
-  <label for="penSelect">Select a Pen:</label>
-  <select id="penSelect"></select>
+  <div class="controls">
+    <select id="penSelect"></select>
+    <select id="quantitySelect">
+      <option value="1">x1</option>
+      <option value="2">x2</option>
+      <option value="3">x3</option>
+    </select>
+    <button onclick="clearPen()">Clear</button>
+    <button onclick="undoLast()">Undo Last</button>
+    <button onclick="submitCustomization()">Finalize</button>
+  </div>
 
   <div id="penCanvas"></div>
 
   <h2>Available Trinkets:</h2>
   <div id="trinketArea"></div>
-
-  <button id="finalizeButton" onclick="submitCustomization()">Finalize Pen</button>
 
   <script src="scripts/script.js"></script>
 

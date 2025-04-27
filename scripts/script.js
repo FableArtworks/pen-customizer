@@ -1,9 +1,11 @@
+let placedTrinkets = [];
+
 async function loadPens() {
   const response = await fetch('config/pens.json');
   const pens = await response.json();
 
   const penSelect = document.getElementById('penSelect');
-  penSelect.innerHTML = ''; // clear old options
+  penSelect.innerHTML = '';
 
   pens.forEach(pen => {
     if (pen.available) {
@@ -20,7 +22,7 @@ async function loadTrinkets() {
   const trinkets = await response.json();
 
   const trinketArea = document.getElementById('trinketArea');
-  trinketArea.innerHTML = ''; // clear old trinkets
+  trinketArea.innerHTML = '';
 
   trinkets.forEach(trinket => {
     if (trinket.available) {
@@ -36,11 +38,31 @@ async function loadTrinkets() {
 
 function addTrinketToPen(trinket) {
   const penCanvas = document.getElementById('penCanvas');
-  const img = document.createElement('img');
-  img.src = trinket.image;
-  img.alt = trinket.name;
-  img.classList.add('trinket-on-pen');
-  penCanvas.appendChild(img);
+  const quantity = parseInt(document.getElementById('quantitySelect').value);
+
+  for (let i = 0; i < quantity; i++) {
+    const img = document.createElement('img');
+    img.src = trinket.image;
+    img.alt = trinket.name;
+    img.classList.add('trinket-on-pen');
+    img.style.top = `${10 + (i * 10)}px`;
+    img.style.left = `${10 + (i * 10)}px`;
+    penCanvas.appendChild(img);
+    placedTrinkets.push(img);
+  }
+}
+
+function clearPen() {
+  const penCanvas = document.getElementById('penCanvas');
+  penCanvas.innerHTML = '';
+  placedTrinkets = [];
+}
+
+function undoLast() {
+  const last = placedTrinkets.pop();
+  if (last) {
+    last.remove();
+  }
 }
 
 async function submitCustomization() {
