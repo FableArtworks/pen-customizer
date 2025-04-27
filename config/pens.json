@@ -1,0 +1,23 @@
+[
+  {
+    "code": "galaxy",
+    "name": "Galaxy",
+    "image": "pens/galaxy.png",
+    "stock": 0,
+    "available": false
+  },
+  {
+    "code": "pen_base_black",
+    "name": "Pen Base Black",
+    "image": "pens/pen_base_black.png",
+    "stock": 0,
+    "available": false
+  },
+  {
+    "code": "silver",
+    "name": "Silver",
+    "image": "pens/silver.png",
+    "stock": 0,
+    "available": false
+  }
+]
