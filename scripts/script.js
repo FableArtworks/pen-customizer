@@ -76,7 +76,7 @@ async function submitCustomization() {
   };
 
   try {
-    const response = await fetch('https://your-backend-url.onrender.com/log', {
+    const response = await fetch('https://pen-customizer-backend.onrender.com/log', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
