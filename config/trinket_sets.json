@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "code": "raiders",
+    "name": "Raiders",
+    "trinkets": [
+      "trinket_sets/raiders/pen_cap_black.png",
+      "trinket_sets/raiders/pen_gem_colorized.png",
+      "trinket_sets/raiders/pen_raidershelmet.png"
+    ]
+  }
+]
