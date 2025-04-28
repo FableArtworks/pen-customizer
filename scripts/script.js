@@ -118,7 +118,7 @@ async function submitCustomization() {
 
   try {
     // Save customization temporarily (same as before)
-    const response = await fetch('https://your-backend-server.onrender.com/temp-save', {
+    const response = await fetch('https://pen-inventory-backend.onrender.com/temp-save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
