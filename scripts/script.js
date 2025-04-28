@@ -111,33 +111,34 @@ async function submitCustomization() {
   const trinketImages = document.querySelectorAll('#penCanvas img:not(:first-child)');
   const selectedTrinkets = Array.from(trinketImages).map(img => img.alt);
 
-  const payload = {
+  const customizationData = {
     pen: selectedPen,
     trinkets: selectedTrinkets
   };
 
   try {
-    // Save customization temporarily (same as before)
+    // Save customization temporarily to Render backend
     const response = await fetch('https://pen-inventory-backend.onrender.com/temp-save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(customizationData)
     });
 
     if (response.ok) {
-      // Now create payment session via backend
-      const checkoutSessionId = await createCustomPenPayment(payload);
+      const result = await response.json();
+      const tempOrderId = result.tempOrderId;  // Server generates unique ID for this temp order
 
-      // Redirect to Wix Checkout
-      wixPay.startPayment(checkoutSessionId);
+      // Tell parent (Wix Page) to start checkout and pass tempOrderId
+      window.parent.postMessage({ action: "startCheckout", tempOrderId: tempOrderId }, "*");
     } else {
       alert('Failed to save customization.');
     }
   } catch (err) {
-    console.error('Error during payment process:', err);
-    alert('Error saving or starting payment.');
+    console.error('Error saving customization:', err);
+    alert('Error saving customization.');
   }
 }
+
 
 window.onload = async () => {
   await loadPens();
