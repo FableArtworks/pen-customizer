@@ -2,21 +2,21 @@
   {
     "code": "galaxy",
     "name": "Galaxy",
-    "image": "pens/galaxy.png",
+    "image": "https://fableartworks.github.io/pen-customizer/pens/galaxy.png",
     "stock": 5,
     "available": true
   },
   {
     "code": "pen_base_black",
     "name": "Pen Base Black",
-    "image": "pens/pen_base_black.png",
+    "image": "https://fableartworks.github.io/pen-customizer/pens/pen_base_black.png",
     "stock": 4,
     "available": true
   },
   {
     "code": "silver",
     "name": "Silver",
-    "image": "pens/silver.png",
+    "image": "https://fableartworks.github.io/pen-customizer/pens/silver.png",
     "stock": 6,
     "available": true
   }

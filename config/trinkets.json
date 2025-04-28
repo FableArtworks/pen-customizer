@@ -3,7 +3,7 @@
     "code": "heart",
     "name": "Heart",
     "category": "gem",
-    "image": "trinkets/gem/heart.png",
+    "image": "https://fableartworks.github.io/pen-customizer/trinkets/gem/heart.png",
     "stock": 4,
     "available": true
   },
@@ -11,7 +11,7 @@
     "code": "moon",
     "name": "Moon",
     "category": "gem",
-    "image": "trinkets/gem/moon.png",
+    "image": "https://fableartworks.github.io/pen-customizer/trinkets/gem/moon.png",
     "stock": 7,
     "available": true
   },
@@ -19,7 +19,7 @@
     "code": "pen_cap_black",
     "name": "Pen Cap Black",
     "category": "seasonal",
-    "image": "trinkets/seasonal/pen_cap_black.png",
+    "image": "https://fableartworks.github.io/pen-customizer/trinkets/seasonal/pen_cap_black.png",
     "stock": 3,
     "available": true
   },
@@ -27,7 +27,7 @@
     "code": "pen_gem_colorized",
     "name": "Pen Gem Colorized",
     "category": "seasonal",
-    "image": "trinkets/seasonal/pen_gem_colorized.png",
+    "image": "https://fableartworks.github.io/pen-customizer/trinkets/seasonal/pen_gem_colorized.png",
     "stock": 0,
     "available": false
   },
@@ -35,7 +35,7 @@
     "code": "pen_raidershelmet",
     "name": "Pen Raidershelmet",
     "category": "seasonal",
-    "image": "trinkets/seasonal/pen_raidershelmet.png",
+    "image": "https://fableartworks.github.io/pen-customizer/trinkets/seasonal/pen_raidershelmet.png",
     "stock": 6,
     "available": true
   }
