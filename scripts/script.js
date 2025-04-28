@@ -117,7 +117,7 @@ async function submitCustomization() {
   };
 
   try {
-    // Save customization temporarily to Render backend
+    console.log('Saving customization...');
     const response = await fetch('https://pen-inventory-backend.onrender.com/temp-save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -125,12 +125,14 @@ async function submitCustomization() {
     });
 
     if (response.ok) {
+      console.log('Customization saved successfully.');
       const result = await response.json();
-      const tempOrderId = result.tempOrderId;  // Server generates unique ID for this temp order
-
-      // Tell parent (Wix Page) to start checkout and pass tempOrderId
+      const tempOrderId = result.tempOrderId;
+      
+      console.log('Sending startCheckout message to parent with tempOrderId:', tempOrderId);
       window.parent.postMessage({ action: "startCheckout", tempOrderId: tempOrderId }, "*");
     } else {
+      console.error('Failed to save customization. Server responded not OK.');
       alert('Failed to save customization.');
     }
   } catch (err) {
@@ -138,7 +140,6 @@ async function submitCustomization() {
     alert('Error saving customization.');
   }
 }
-
 
 window.onload = async () => {
   await loadPens();
