@@ -104,6 +104,8 @@ function undoLast() {
   }
 }
 
+import { createCustomPenPayment } from 'backend/checkout.jsw'; // ✅ This calls your backend
+
 async function submitCustomization() {
   const selectedPen = document.getElementById('penSelect').value;
   const trinketImages = document.querySelectorAll('#penCanvas img:not(:first-child)');
@@ -115,20 +117,25 @@ async function submitCustomization() {
   };
 
   try {
-    const response = await fetch('https://pen-inventory-backend.onrender.com/log', {
+    // Save customization temporarily (same as before)
+    const response = await fetch('https://your-backend-server.onrender.com/temp-save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
 
     if (response.ok) {
-      alert('Pen finalized and logged!');
+      // Now create payment session via backend
+      const checkoutSessionId = await createCustomPenPayment(payload);
+
+      // Redirect to Wix Checkout
+      wixPay.startPayment(checkoutSessionId);
     } else {
-      alert('Failed to finalize pen.');
+      alert('Failed to save customization.');
     }
   } catch (err) {
-    console.error('Error submitting:', err);
-    alert('Error finalizing pen.');
+    console.error('Error during payment process:', err);
+    alert('Error saving or starting payment.');
   }
 }
 
