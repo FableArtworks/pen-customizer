@@ -104,7 +104,7 @@ function undoLast() {
   }
 }
 
-import { createCustomPenPayment } from 'backend/checkout.jsw'; // ✅ This calls your backend
+//import { createCustomPenPayment } from 'backend/checkout.jsw'; // ✅ This calls your backend
 
 async function submitCustomization() {
   const selectedPen = document.getElementById('penSelect').value;
